@@ -94,7 +94,7 @@ namespace PropertyWatcher {
 	typedef FAnsiStringView FAView;
 
 	// Writing .GetData() everywhere looks unpleasant.
-	UE_NODISCARD FORCEINLINE const char* operator*(FAView a) { return a.GetData(); }
+	[[nodiscard]] FORCEINLINE const char* operator*(FAView a) { return a.GetData(); }
 
 	// These functions don't exist with a search case parameter for string views.
 	// So we have to add them ourselfs.
@@ -162,22 +162,22 @@ namespace PropertyWatcher {
 		bool UpdateItemFromPath(TArray<PropertyItem>& Items);
 	};
 
-	PropertyItem MakeObjectItem(void* _Ptr);
-	PropertyItem MakeObjectItemNamed(void* _Ptr, const char* _NameOverwrite, FAView NameID = "");
-	PropertyItem MakeObjectItemNamed(void* _Ptr, FString _NameOverwrite, FAView NameID = "");
-	PropertyItem MakeObjectItemNamed(void* _Ptr, FAView _NameOverwrite, FAView NameID = "");
-	PropertyItem MakeArrayItem(void* _Ptr, FProperty* _Prop, int _Index, bool IsObjectProp = false);
-	PropertyItem MakePropertyItem(void* _Ptr, FProperty* _Prop);
-	PropertyItem MakeFunctionItem(void* _Ptr, UFunction* _Function);
-	PropertyItem MakePropertyItemNamed(void* _Ptr, FProperty* _Prop, FAView Name, FAView NameID = "");
+	IMGUIPROPERTYWATCHER_API PropertyItem MakeObjectItem(void* _Ptr);
+	IMGUIPROPERTYWATCHER_API PropertyItem MakeObjectItemNamed(void* _Ptr, const char* _NameOverwrite, FAView NameID = "");
+	IMGUIPROPERTYWATCHER_API PropertyItem MakeObjectItemNamed(void* _Ptr, FString _NameOverwrite, FAView NameID = "");
+	IMGUIPROPERTYWATCHER_API PropertyItem MakeObjectItemNamed(void* _Ptr, FAView _NameOverwrite, FAView NameID = "");
+	IMGUIPROPERTYWATCHER_API PropertyItem MakeArrayItem(void* _Ptr, FProperty* _Prop, int _Index, bool IsObjectProp = false);
+	IMGUIPROPERTYWATCHER_API PropertyItem MakePropertyItem(void* _Ptr, FProperty* _Prop);
+	IMGUIPROPERTYWATCHER_API PropertyItem MakeFunctionItem(void* _Ptr, UFunction* _Function);
+	IMGUIPROPERTYWATCHER_API PropertyItem MakePropertyItemNamed(void* _Ptr, FProperty* _Prop, FAView Name, FAView NameID = "");
 	#define PropertyWatcherMakeStructItem(StructType, _Ptr) { PropertyWatcher::PointerType::Struct, _Ptr, 0, "", StaticStruct<StructType>() }
 	#define PropertyWatcherMakeStructItemNamed(StructType, _Ptr, _NameOverwrite) { PropertyWatcher::PointerType::Struct, _Ptr, 0, _NameOverwrite, StaticStruct<StructType>() }
 
 	//
 
-	void Update(FString WindowName, TArray<PropertyItemCategory>& CategoryItems, TArray<MemberPath>& WatchedMembers, UWorld* World, bool* IsOpen, bool* WantsToSave, bool* WantsToLoad, bool Init = false);
-	FString ConvertWatchedMembersToString(TArray<MemberPath>& WatchedMembers);
-	void LoadWatchedMembersFromString(FString String, TArray<MemberPath>& WatchedMembers);
+	IMGUIPROPERTYWATCHER_API void Update(FString WindowName, TArray<PropertyItemCategory>& CategoryItems, TArray<MemberPath>& WatchedMembers, UWorld* World, bool* IsOpen, bool* WantsToSave, bool* WantsToLoad, bool Init = false);
+	IMGUIPROPERTYWATCHER_API FString ConvertWatchedMembersToString(TArray<MemberPath>& WatchedMembers);
+	IMGUIPROPERTYWATCHER_API void LoadWatchedMembersFromString(FString String, TArray<MemberPath>& WatchedMembers);
 }
 
 #endif // PROPERTY_WATCHER_H_INCLUDE
